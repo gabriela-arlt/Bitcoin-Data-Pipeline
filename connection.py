@@ -91,14 +91,28 @@ fig.update_layout(
 )
 
 # Customize the line colors
-fig.update_traces(line=dict(color='#00008b'))  # Dark blue color for the lines
+#fig.update_traces(line=dict(color='#00008b'))  # Dark blue color for the lines
 
-# Update the line colors individually
-fig.for_each_trace(lambda trace: trace.update(line=dict(color={
-    'low': '#ff1397',  # Tomato
-    'high': '#c0b1ff',  # SteelBlue
-    'close': '#FFFF00'  # LimeGreen
-}[trace.name])))
+# Define colors and widths for each line
+colors = {
+    'low': '#ff1397',  # purple
+    'high': '#c0b1ff',  # pink
+    'close': '#FFFF00'  # yellow
+}
+
+widths = {
+    'low': 2,  # Width for low line
+    'high': 4,  # Width for high line
+    'close': 3  # Width for close line
+}
+
+# Update the line colors and widths individually
+fig.for_each_trace(
+    lambda trace: trace.update(
+        line=dict(color=colors[trace.name], width=widths[trace.name])
+    )
+)
+
 
 # Display the Plotly chart
 st.plotly_chart(fig)
