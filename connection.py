@@ -75,7 +75,7 @@ monthly_data['year_month'] = monthly_data['year_month'].dt.to_timestamp()
 fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close'], labels={
     'value': 'Price',
     'year_month': 'Date'
-}, title='Monthly Low, High, and Close Prices for Bitcoin')
+}, color='Viridis' title='Monthly Low, High, and Close Prices for Bitcoin')
 
 # Customize the layout to change the background color
 fig.update_layout(
@@ -85,6 +85,17 @@ fig.update_layout(
     plot_bgcolor='#add8e6',  # Bright blue background for the plot area
     paper_bgcolor='#add8e6',  # Bright blue background for the entire figure
 )
+
+# Customize the line colors
+fig.update_traces(line=dict(color='#00008b'))  # Dark blue color for the lines
+
+# Update the line colors individually
+fig.for_each_trace(lambda trace: trace.update(line=dict(color={
+    'low': '#ff6347',  # Tomato
+    'high': '#4682b4',  # SteelBlue
+    'close': '#32cd32'  # LimeGreen
+}[trace.name])))
+
 # Display the Plotly chart
 st.plotly_chart(fig)
 
