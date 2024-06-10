@@ -88,5 +88,5 @@ def main():
         st.error("Failed to connect to the database.")
 
 # Run the app
-#if __name__ == "__main__":
-   # main()
+if __name__ == "__main__":
+    main()
