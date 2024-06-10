@@ -86,8 +86,8 @@ fig.update_layout(
     xaxis_title='Date',
     yaxis_title='Price',
     legend_title='Price Type',
-    plot_bgcolor='#add8e6',  # Bright blue background for the plot area
-    paper_bgcolor='#add8e6',  # Bright blue background for the entire figure
+    plot_bgcolor='#00008b',  # Bright blue background for the plot area
+    paper_bgcolor='#00008b',  # Bright blue background for the entire figure
 )
 
 # Customize the line colors
