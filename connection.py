@@ -75,7 +75,7 @@ monthly_data['year_month'] = monthly_data['year_month'].dt.to_timestamp()
 fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close'], labels={
     'value': 'Price',
     'year_month': 'Date'
-}, color='Viridis' title='Monthly Low, High, and Close Prices for Bitcoin')
+}, color='Viridis', title='Monthly Low, High, and Close Prices for Bitcoin')
 
 # Customize the layout to change the background color
 fig.update_layout(
