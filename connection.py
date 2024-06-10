@@ -98,30 +98,3 @@ fig.for_each_trace(lambda trace: trace.update(line=dict(color={
 
 # Display the Plotly chart
 st.plotly_chart(fig)
-
-with st.expander("Data Preview"):
-     st.dataframe(bitcoin_prices_df)
-# Display the dataframe
-st.write(bitcoin_prices_df[['date', 'open', 'high', 'low', 'close', 'volume']])
-
-
-
-
-# Merge prices and news dataframes on the date column
-# merged_df = pd.merge(bitcoin_prices_df, bitcoin_news_df, on='date', how='left')
-
-# Convert the date column to datetime format
-# merged_df['date'] = pd.to_datetime(merged_df['date'])
-
-# Convert pandas Timestamps to datetime.date
-# min_date = merged_df['date'].min().date()
-# max_date = merged_df['date'].max().date()
-
-# Sidebar for date selection
-# st.sidebar.title("Controls")
-# date_range = st.sidebar.slider("Select Date Range", min_date, max_date, (min_date, max_date))
-
-# Filter the dataframe based on the selected date range
-# filtered_df = merged_df[(merged_df['date'] >= pd.to_datetime(date_range[0])) & (merged_df['date'] <= pd.to_datetime(date_range[1]))]
-
-# Main Dashboard
