@@ -42,7 +42,7 @@ def fetch_bitcoin_news(engine):
 
 # Main function to run the Streamlit app
 def main():
-    st.title("Gabi")
+    st.title("Gabis Vizz")
 
     # Get the database connection
     conn = get_connection()
