@@ -4,15 +4,12 @@ import pandas as pd
 import plotly.express as px
 import os
 from dotenv import load_dotenv
-load_dotenv()
 
-# Print secrets to debug
-#st.write(st.secrets)
+load_dotenv()
 
 # Function to connect to the Database
 def get_connection():
     try:
-# DATABASE_URL = os.getenv("railway_url")
         DATABASE_URL = st.secrets["railway_url"]
         engine = create_engine(DATABASE_URL)
         return engine
@@ -43,44 +40,47 @@ def fetch_bitcoin_news(engine):
 # Get the database connection
 conn = get_connection()
 
-st.title("Gabi's Bitcoin Dashboard")
-
 # Custom CSS to change background color to very light blue and font color to dark blue
 st.markdown(
     """
     <style>
     .main {
         background-color: #e0f7fa;
+    }
+    .stApp {
+        color: #00008b;
+    }
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
         color: #00008b;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
+
+st.title("Gabi's Bitcoin Dashboard")
+
 # Fetch the bitcoin data and news
 bitcoin_prices_df = fetch_bitcoin_data(conn)
 bitcoin_news_df = fetch_bitcoin_news(conn)
 
-
-
 st.write(bitcoin_prices_df[['date', 'open', 'high', 'low', 'close', 'volume']])
 
-
 # Merge prices and news dataframes on the date column
-#merged_df = pd.merge(bitcoin_prices_df, bitcoin_news_df, on='date', how='left')
+# merged_df = pd.merge(bitcoin_prices_df, bitcoin_news_df, on='date', how='left')
 
 # Convert the date column to datetime format
-#merged_df['date'] = pd.to_datetime(merged_df['date'])
+# merged_df['date'] = pd.to_datetime(merged_df['date'])
 
 # Convert pandas Timestamps to datetime.date
-#min_date = merged_df['date'].min().date()
-#max_date = merged_df['date'].max().date()
+# min_date = merged_df['date'].min().date()
+# max_date = merged_df['date'].max().date()
 
 # Sidebar for date selection
-#st.sidebar.title("Controls")
-#date_range = st.sidebar.slider("Select Date Range", min_date, max_date, (min_date, max_date))
+# st.sidebar.title("Controls")
+# date_range = st.sidebar.slider("Select Date Range", min_date, max_date, (min_date, max_date))
+
 # Filter the dataframe based on the selected date range
-#filtered_df = merged_df[(merged_df['date'] >= pd.to_datetime(date_range[0])) & (merged_df['date'] <= pd.to_datetime(date_range[1]))]
+# filtered_df = merged_df[(merged_df['date'] >= pd.to_datetime(date_range[0])) & (merged_df['date'] <= pd.to_datetime(date_range[1]))]
 
 # Main Dashboard
-
