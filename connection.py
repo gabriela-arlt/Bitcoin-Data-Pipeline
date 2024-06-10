@@ -102,7 +102,7 @@ colors = {
 
 widths = {
     'low': 2,  # Width for low line
-    'high': 4,  # Width for high line
+    'high': 8,  # Width for high line
     'close': 3  # Width for close line
 }
 
