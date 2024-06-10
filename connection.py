@@ -71,6 +71,10 @@ monthly_data = bitcoin_prices_df.groupby('year_month').agg({'low': 'mean', 'high
 # Convert year_month to datetime for plotting
 monthly_data['year_month'] = monthly_data['year_month'].dt.to_timestamp()
 
+#Dropdown for the dataframe
+with st.expander("Data Preview"):
+     st.dataframe(bitcoin_prices_df)
+
 # Create a line chart with Plotly Express
 fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close'], labels={
     'value': 'Price',
@@ -98,3 +102,9 @@ fig.for_each_trace(lambda trace: trace.update(line=dict(color={
 
 # Display the Plotly chart
 st.plotly_chart(fig)
+
+
+
+
+
+
