@@ -95,9 +95,9 @@ fig.update_traces(line=dict(color='#00008b'))  # Dark blue color for the lines
 
 # Update the line colors individually
 fig.for_each_trace(lambda trace: trace.update(line=dict(color={
-    'low': '#ff6347',  # Tomato
-    'high': '#4682b4',  # SteelBlue
-    'close': '#32cd32'  # LimeGreen
+    'low': '#ff1397',  # Tomato
+    'high': '#c0b1ff',  # SteelBlue
+    'close': '#FFFF00'  # LimeGreen
 }[trace.name])))
 
 # Display the Plotly chart
