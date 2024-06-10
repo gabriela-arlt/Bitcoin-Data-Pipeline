@@ -107,7 +107,7 @@ widths = {
     'low': 2,  # Width for low line
     'high': 8,  # Width for high line
     'close': 3,  # Width for close line
-    'open' : 8
+    'open' : 3
 }
 
 # Update the line colors and widths individually
