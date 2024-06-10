@@ -88,9 +88,9 @@ fig.update_layout(
     legend_title='Price Type',
     plot_bgcolor='#e0f7fa',  # Bright blue background for the plot area
     paper_bgcolor='#e0f7fa',  # Bright blue background for the entire figure
-    title_font=dict(color='#00008b')  # Dark blue color for the title
+    title_font={'color': '#00008b'} # Dark blue color for the title
 )
-fig.title 
+
 
 # Customize the line colors
 #fig.update_traces(line=dict(color='#00008b'))  # Dark blue color for the lines
