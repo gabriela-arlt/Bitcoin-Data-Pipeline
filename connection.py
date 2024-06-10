@@ -58,7 +58,40 @@ st.markdown("<h1 style='color: #00008b;'>Gabi's Bitcoin Dashboard</h1>", unsafe_
 bitcoin_prices_df = fetch_bitcoin_data(conn)
 bitcoin_news_df = fetch_bitcoin_news(conn)
 
+
+# Convert date column to datetime format
+bitcoin_prices_df['date'] = pd.to_datetime(bitcoin_prices_df['date'])
+
+# Extract month and year from date
+bitcoin_prices_df['year_month'] = bitcoin_prices_df['date'].dt.to_period('M')
+
+# Group by year_month and calculate mean of low, high, and close
+monthly_data = bitcoin_prices_df.groupby('year_month').agg({'low': 'mean', 'high': 'mean', 'close': 'mean'}).reset_index()
+
+# Convert year_month to datetime for plotting
+monthly_data['year_month'] = monthly_data['year_month'].dt.to_timestamp()
+
+# Create a line chart with Plotly Express
+fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close'], labels={
+    'value': 'Price',
+    'year_month': 'Date'
+}, title='Monthly Low, High, and Close Prices for Bitcoin')
+
+# Customize the layout
+fig.update_layout(
+    xaxis_title='Date',
+    yaxis_title='Price',
+    legend_title='Price Type'
+)
+
+# Display the Plotly chart
+st.plotly_chart(fig)
+
+# Display the dataframe
 st.write(bitcoin_prices_df[['date', 'open', 'high', 'low', 'close', 'volume']])
+
+
+
 
 # Merge prices and news dataframes on the date column
 # merged_df = pd.merge(bitcoin_prices_df, bitcoin_news_df, on='date', how='left')
