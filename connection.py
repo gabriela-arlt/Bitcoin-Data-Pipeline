@@ -2,17 +2,14 @@ import streamlit as st
 from sqlalchemy import create_engine
 import pandas as pd
 import plotly.express as px
+import altair as alt
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
-# Print secrets to debug
-#st.write(st.secrets)
-
 # Function to connect to the Database
 def get_connection():
     try:
-# DATABASE_URL = os.getenv("railway_url")
         DATABASE_URL = st.secrets["railway_url"]
         engine = create_engine(DATABASE_URL)
         return engine
@@ -44,6 +41,18 @@ def fetch_bitcoin_news(engine):
 def main():
     st.title("Bitcoin Data Visualization")
 
+    # Custom CSS to change background color
+    st.markdown(
+        """
+        <style>
+        .main {
+            background-color: #f5f5f5;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
     # Get the database connection
     conn = get_connection()
 
@@ -71,13 +80,40 @@ def main():
 
             # Creating a Plotly line chart with tooltips for news
             fig = px.line(filtered_df, x='date', y='close', title='Prices for BTC', labels={'close': 'BTC Price'})
-
-            # Add hover data for news headlines
             fig.update_traces(mode='lines+markers', hovertemplate='<b>Date</b>: %{x}<br><b>Price</b>: %{y}<br><b>News</b>: %{customdata[0]}')
-            fig.update_traces(customdata=filtered_df[['title']].values)
-
-            # Display the Plotly chart
+            fig.update_traces(customdata=filtered_df[['news_title']].values)
             st.plotly_chart(fig)
+
+            # Volume Bar Chart using Altair
+            st.subheader('Daily Trading Volume')
+            volume_chart = alt.Chart(filtered_df).mark_bar().encode(
+                x='date:T',
+                y='volume:Q',
+                tooltip=['date:T', 'volume:Q']
+            ).properties(
+                width=800,
+                height=400
+            )
+            st.altair_chart(volume_chart, use_container_width=True)
+
+            # News Impact on Price using Altair
+            st.subheader('News Impact on Bitcoin Price')
+            price_news_chart = alt.Chart(filtered_df).mark_line().encode(
+                x='date:T',
+                y='close:Q'
+            ).properties(
+                width=800,
+                height=400
+            ) + alt.Chart(filtered_df).mark_text(
+                align='left',
+                baseline='middle',
+                dx=7
+            ).encode(
+                x='date:T',
+                y='close:Q',
+                text='news_title:N'
+            )
+            st.altair_chart(price_news_chart, use_container_width=True)
 
             # Displaying the dataframe with bitcoin news
             st.title("Bitcoin News")
