@@ -42,6 +42,17 @@ def fetch_bitcoin_news(engine):
 
 # Get the database connection
 conn = get_connection()
+# Custom CSS to change background color to very light blue
+st.markdown(
+    """
+    <style>
+    .main {
+        background-color: #e0f7fa;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Fetch the bitcoin data and news
 bitcoin_prices_df = fetch_bitcoin_data(conn)
