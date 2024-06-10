@@ -49,7 +49,7 @@ bitcoin_news_df = fetch_bitcoin_news(conn)
 
 st.title("Gabi's Bitcoin Dashboard")
 
-st.write(bitcoin_prices_df[['date', 'title']])
+st.write(bitcoin_prices_df[['date', 'open', 'high', 'low', 'close', 'volume']])
 
 
 # Merge prices and news dataframes on the date column
