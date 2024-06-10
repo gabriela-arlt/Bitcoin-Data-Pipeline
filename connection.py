@@ -42,7 +42,7 @@ def fetch_bitcoin_news(engine):
 
 # Main function to run the Streamlit app
 def main():
-    st.title("Bitcoin Data Visualization")
+    st.title("Gabi")
 
     # Get the database connection
     conn = get_connection()
@@ -88,5 +88,5 @@ def main():
         st.error("Failed to connect to the database.")
 
 # Run the app
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+   # main()
