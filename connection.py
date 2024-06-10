@@ -77,13 +77,14 @@ fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close'], labels={
     'year_month': 'Date'
 }, title='Monthly Low, High, and Close Prices for Bitcoin')
 
-# Customize the layout
+# Customize the layout to change the background color
 fig.update_layout(
     xaxis_title='Date',
     yaxis_title='Price',
-    legend_title='Price Type'
+    legend_title='Price Type',
+    plot_bgcolor='#add8e6',  # Bright blue background for the plot area
+    paper_bgcolor='#add8e6',  # Bright blue background for the entire figure
 )
-
 # Display the Plotly chart
 st.plotly_chart(fig)
 
