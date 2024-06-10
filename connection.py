@@ -99,6 +99,8 @@ fig.for_each_trace(lambda trace: trace.update(line=dict(color={
 # Display the Plotly chart
 st.plotly_chart(fig)
 
+with st.exapnder("Data Preview"):
+     st.dataframe(bitcoin_prices_df)
 # Display the dataframe
 st.write(bitcoin_prices_df[['date', 'open', 'high', 'low', 'close', 'volume']])
 
