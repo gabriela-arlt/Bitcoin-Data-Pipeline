@@ -66,7 +66,7 @@ bitcoin_prices_df['date'] = pd.to_datetime(bitcoin_prices_df['date'])
 bitcoin_prices_df['year_month'] = bitcoin_prices_df['date'].dt.to_period('M')
 
 # Group by year_month and calculate mean of low, high, and close
-monthly_data = bitcoin_prices_df.groupby('year_month').agg({'low': 'mean', 'high': 'mean', 'close': 'mean'}).reset_index()
+monthly_data = bitcoin_prices_df.groupby('year_month').agg({'low': 'mean', 'high': 'mean', 'close': 'mean', 'open':'mean'}).reset_index()
 
 # Convert year_month to datetime for plotting
 monthly_data['year_month'] = monthly_data['year_month'].dt.to_timestamp()
@@ -76,7 +76,7 @@ with st.expander("Data Preview"):
      st.dataframe(bitcoin_prices_df)
 
 # Create a line chart with Plotly Express
-fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close'], labels={
+fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
     'value': 'Price',
     'year_month': 'Date'
 }, title='Monthly Low, High, and Close Prices for Bitcoin')
@@ -99,13 +99,15 @@ fig.update_layout(
 colors = {
     'low': '#ff1397',  # purple
     'high': '#c0b1ff',  # pink
-    'close': '#FFFF00'  # yellow
+    'close': '#FFFF00',  # yellow
+    'open': '#a4f506' # green
 }
 
 widths = {
     'low': 2,  # Width for low line
     'high': 8,  # Width for high line
-    'close': 3  # Width for close line
+    'close': 3,  # Width for close line
+    'open' : 8
 }
 
 # Update the line colors and widths individually
