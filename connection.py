@@ -47,18 +47,12 @@ st.markdown(
     .main {
         background-color: #e0f7fa;
     }
-    .stApp {
-        color: #00008b;
-    }
-    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
-        color: #00008b;
-    }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-st.title("Gabi's Bitcoin Dashboard")
+st.markdown("<h1 style='color: #00008b;'>Gabi's Bitcoin Dashboard</h1>", unsafe_allow_html=True)
 
 # Fetch the bitcoin data and news
 bitcoin_prices_df = fetch_bitcoin_data(conn)
