@@ -118,6 +118,16 @@ fig1.update_layout(
 st.plotly_chart(fig1, use_container_width=True)
 
 
+#create a monthly filter
+st.sidebar.header("Choose your filter: ")
+month=st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["year_month"].unique())
+if not month:
+     df2= bitcoin_prices_df.copy()
+else:
+     df2=bitcoin_prices_df[bitcoin_prices_df["year_month"].isin(month)]
+
+
+
 # Create a line chart with Plotly Express
 fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
