@@ -40,7 +40,7 @@ def fetch_bitcoin_news(engine):
 
 # Get the database connection
 conn = get_connection()
-st.set_page_config(page_title="What!?")
+
 
 # Custom CSS to change background color to very light blue and font color to dark blue
 st.markdown(
