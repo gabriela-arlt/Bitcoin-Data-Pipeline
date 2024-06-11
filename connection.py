@@ -121,7 +121,7 @@ else:
 #### Pie Chart
 with col1:
     st.subheader('Volume wise Bitcoin')
-    fig3=px.pie(df2, values="Volume", names="month", hole=0.5)
+    fig3=px.pie(bitcoin_prices_df, values="Volume", names="month", hole=0.5)
     fig3.update_traces(text=filtered_df["month"], textposition="outside")
     st.palotly_chart(fig3, use_container_width=True)
     
