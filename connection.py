@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import os
 from dotenv import load_dotenv
+import plotly.graph_objects as go
 
 load_dotenv()
 
@@ -54,6 +55,8 @@ st.markdown(
 
 st.markdown("<h1 style='color: #00008b;'>Gabi's Bitcoin Dashboard</h1>", unsafe_allow_html=True)
 
+st.set_page_config(page_title="What!?")
+
 # Fetch the bitcoin data and news
 bitcoin_prices_df = fetch_bitcoin_data(conn)
 bitcoin_news_df = fetch_bitcoin_news(conn)
@@ -71,58 +74,54 @@ monthly_data = bitcoin_prices_df.groupby('year_month').agg({'low': 'mean', 'high
 # Convert year_month to datetime for plotting
 monthly_data['year_month'] = monthly_data['year_month'].dt.to_timestamp()
 
+def plot_bottom_left(): 
+
 #Dropdown for the dataframe
-with st.expander("Data Preview"):
-     st.dataframe(bitcoin_prices_df)
+  with st.expander("Data Preview"):
+       st.dataframe(bitcoin_prices_df)
 
 # Create a line chart with Plotly Express
-fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
-    'value': 'Price',
-    'year_month': 'Date'
-}, title='Monthly Low, High, and Close Prices for Bitcoin')
+  fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
+       'value': 'Price',
+       'year_month': 'Date'
+      }, title='Monthly Low, High, and Close Prices for Bitcoin')
 
 # Customize the layout to change the background color
-fig.update_layout(
+  fig.update_layout(
     xaxis_title='Date',
     yaxis_title='Price',
     legend_title='Price Type',
     plot_bgcolor='#e0f7fa',  # Bright blue background for the plot area
     paper_bgcolor='#e0f7fa',  # Bright blue background for the entire figure
     title_font={'color': '#00008b'} # Dark blue color for the title
-)
+  )
 
 
 # Customize the line colors
 #fig.update_traces(line=dict(color='#00008b'))  # Dark blue color for the lines
 
 # Define colors and widths for each line
-colors = {
+  colors = {
     'low': '#ff1397',  # purple
     'high': '#c0b1ff',  # pink
     'close': '#FFFF00',  # yellow
     'open': '#a4f506' # green
-}
+  }
 
-widths = {
+  widths = {
     'low': 2,  # Width for low line
     'high': 8,  # Width for high line
     'close': 3,  # Width for close line
     'open' : 3
-}
+  }
 
 # Update the line colors and widths individually
-fig.for_each_trace(
+  fig.for_each_trace(
     lambda trace: trace.update(
         line=dict(color=colors[trace.name], width=widths[trace.name])
     )
-)
-
-
+  )
 # Display the Plotly chart
-st.plotly_chart(fig)
-
-
-
-
+  st.plotly_chart(fig, use_container_width=True)
 
 
