@@ -100,12 +100,13 @@ bitcoin_prices_df=bitcoin_prices_df[(bitcoin_prices_df["date"]>=date1) & (bitcoi
 
 
 # Create a line chart with Plotly Expres daily
-fig = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close','open'], labels={
+fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
        'date': 'Date'
       }, title='DailyPrices for Bitcoin')
 
-
+# Display the Plotly chart
+st.plotly_chart(fig1, use_container_width=True)
 
 
 # Create a line chart with Plotly Express
