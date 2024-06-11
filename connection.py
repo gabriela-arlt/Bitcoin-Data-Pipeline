@@ -80,6 +80,30 @@ monthly_data['year_month'] = monthly_data['year_month'].dt.to_timestamp()
 with st.expander("Data Preview"):
        st.dataframe(bitcoin_prices_df)
 
+
+
+#created start and end date options
+col1, col2 = st.column((2))
+bitcoin_prices_df["date"]=pd.to_datetime(bitcoin_prices_df["date"])
+
+#getting the min and max date
+startDate=pd.to_datetime(bitcoin_prices_df["date"]).min()
+endDate=pd.to_datetime(bitcoin_prices_df["date"]).max()
+
+with col1:
+    date1=pd.to_datetime(st.date_input("Start Date", startDate))
+
+with col2:
+    date2=pd.to_datetime(st.date_input("End Date", endDate))
+
+bitcoin_prices_df=bitcoin_prices_df[(bitcoin_prices_df["date"]>=date1)& (bitcoin_prices_df["date"]<=date2)].copy()
+
+
+
+
+
+
+
 # Create a line chart with Plotly Express
 fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
