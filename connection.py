@@ -137,7 +137,7 @@ else:
 
 
 # Create a line chart with Plotly Express
-fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
+fig = px.line(filtered_df, x='year_month', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
        'year_month': 'Date'
       }, title='Monthly Low, High, and Close Prices for Bitcoin')
