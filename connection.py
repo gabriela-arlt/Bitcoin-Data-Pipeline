@@ -153,8 +153,4 @@ fig.for_each_trace(
 st.plotly_chart(fig, use_container_width=True)
 
 
-# Create a line chart with Plotly Express
-fig = px.line(, x='year_month', y=['low', 'high', 'close','open'], labels={
-       'value': 'Price',
-       'year_month': 'Date'
-      }, title='Monthly Low, High, and Close Prices for Bitcoin')
+
