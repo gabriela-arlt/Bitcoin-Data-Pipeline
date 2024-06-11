@@ -40,6 +40,7 @@ def fetch_bitcoin_news(engine):
 
 # Get the database connection
 conn = get_connection()
+st.set_page_config(page_title="What!?")
 
 # Custom CSS to change background color to very light blue and font color to dark blue
 st.markdown(
@@ -55,7 +56,7 @@ st.markdown(
 
 st.markdown("<h1 style='color: #00008b;'>Gabi's Bitcoin Dashboard</h1>", unsafe_allow_html=True)
 
-st.set_page_config(page_title="What!?")
+
 
 # Fetch the bitcoin data and news
 bitcoin_prices_df = fetch_bitcoin_data(conn)
