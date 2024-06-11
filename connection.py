@@ -121,7 +121,7 @@ else:
 
 
 # Create a line chart with Plotly Expres daily
-fig1 = px.line(bitcoin_prices_df, x='year_month', y=['low', 'high', 'close','open'], labels={
+fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
        'date': 'Date'
       }, title='DailyPrices for Bitcoin')
