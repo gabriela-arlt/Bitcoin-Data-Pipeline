@@ -102,11 +102,11 @@ bitcoin_prices_df=bitcoin_prices_df[(bitcoin_prices_df["date"]>=date1) & (bitcoi
 
 #create a monthly filter
 st.sidebar.header("Choose your filter: ")
-month=st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["year_month"].unique())
+month=st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].unique())
 if not month:
      df2= bitcoin_prices_df.copy()
 else:
-     df2=bitcoin_prices_df[bitcoin_prices_df["year_month"].isin(month)]
+     df2=bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)]
 
 
 
@@ -115,7 +115,7 @@ else:
 if not month:
    filtered_df= bitcoin_prices_df
 else:
-   filtered_df=bitcoin_prices_df[bitcoin_prices_df["year_month"].isin(month)]
+   filtered_df=bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)]
 
 with col1:
     st.subheader('Volume wise Bitcoin')
@@ -144,9 +144,9 @@ st.plotly_chart(fig1, use_container_width=True)
 
 
 # Create a line chart with Plotly Express
-fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
+fig = px.line(monthly_data, x='month', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
-       'year_month': 'Date'
+       'month': 'Date'
       }, title='Monthly Low, High, and Close Prices for Bitcoin')
 
 # Customize the layout to change the background color
