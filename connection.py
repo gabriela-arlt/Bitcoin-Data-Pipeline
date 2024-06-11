@@ -41,7 +41,6 @@ def fetch_bitcoin_news(engine):
 # Get the database connection
 conn = get_connection()
 
-
 # Custom CSS to change background color to very light blue and font color to dark blue
 st.markdown(
     """
@@ -124,5 +123,6 @@ def plot_bottom_left():
   )
 # Display the Plotly chart
   st.plotly_chart(fig, use_container_width=True)
+  plot_bottom_left()
 
 
