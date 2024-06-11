@@ -128,6 +128,14 @@ else:
 
 
 
+# Filer the data based on the month
+
+if not month:
+    filtered_df= bitcoin_prices_df
+else:
+ filtered_df=bitcoin_prices_df[bitcoin_prices_df["year_month"].isin(month)]
+
+
 # Create a line chart with Plotly Express
 fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
