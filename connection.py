@@ -74,20 +74,20 @@ monthly_data = bitcoin_prices_df.groupby('year_month').agg({'low': 'mean', 'high
 # Convert year_month to datetime for plotting
 monthly_data['year_month'] = monthly_data['year_month'].dt.to_timestamp()
 
-def plot_bottom_left(): 
+
 
 #Dropdown for the dataframe
-  with st.expander("Data Preview"):
+with st.expander("Data Preview"):
        st.dataframe(bitcoin_prices_df)
 
 # Create a line chart with Plotly Express
-  fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
+fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
        'year_month': 'Date'
       }, title='Monthly Low, High, and Close Prices for Bitcoin')
 
 # Customize the layout to change the background color
-  fig.update_layout(
+fig.update_layout(
     xaxis_title='Date',
     yaxis_title='Price',
     legend_title='Price Type',
@@ -101,14 +101,14 @@ def plot_bottom_left():
 #fig.update_traces(line=dict(color='#00008b'))  # Dark blue color for the lines
 
 # Define colors and widths for each line
-  colors = {
+colors = {
     'low': '#ff1397',  # purple
     'high': '#c0b1ff',  # pink
     'close': '#FFFF00',  # yellow
     'open': '#a4f506' # green
   }
 
-  widths = {
+widths = {
     'low': 2,  # Width for low line
     'high': 8,  # Width for high line
     'close': 3,  # Width for close line
@@ -116,13 +116,13 @@ def plot_bottom_left():
   }
 
 # Update the line colors and widths individually
-  fig.for_each_trace(
+fig.for_each_trace(
     lambda trace: trace.update(
         line=dict(color=colors[trace.name], width=widths[trace.name])
     )
   )
 # Display the Plotly chart
-  st.plotly_chart(fig, use_container_width=True)
-  plot_bottom_left()
+st.plotly_chart(fig, use_container_width=True)
+
 
 
