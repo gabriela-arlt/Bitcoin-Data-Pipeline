@@ -66,13 +66,12 @@ bitcoin_news_df = fetch_bitcoin_news(conn)
 bitcoin_prices_df['date'] = pd.to_datetime(bitcoin_prices_df['date'])
 
 # Extract month and year from date
-bitcoin_prices_df['year_month'] = bitcoin_prices_df['date'].dt.to_period('M')
+bitcoin_prices_df['month'] = bitcoin_prices_df['date'].dt.month
+bitcoin_prices_df['year'] = bitcoin_prices_df['date'].dt.year
+
 
 # Group by year_month and calculate mean of low, high, and close
-monthly_data = bitcoin_prices_df.groupby('year_month').agg({'low': 'mean', 'high': 'mean', 'close': 'mean', 'open':'mean'}).reset_index()
-
-# Convert year_month to datetime for plotting
-monthly_data['year_month'] = monthly_data['year_month'].dt.to_timestamp()
+monthly_data = bitcoin_prices_df.groupby('month').agg({'low': 'mean', 'high': 'mean', 'close': 'mean', 'open':'mean'}).reset_index()
 
 
 
@@ -118,7 +117,9 @@ if not month:
 else:
    filtered_df=bitcoin_prices_df[bitcoin_prices_df["year_month"].isin(month)]
 
-
+with col1:
+    st.subheader('Volume wise Bitcoin')
+    
 
 # Create a line chart with Plotly Expres daily
 fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close','open'], labels={
