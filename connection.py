@@ -104,6 +104,15 @@ fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close','open'], l
        'value': 'Price',
        'date': 'Date'
       }, title='DailyPrices for Bitcoin')
+# Customize the layout to change the background color
+fig1.update_layout(
+    xaxis_title='Date',
+    yaxis_title='Price',
+    legend_title='Price Type',
+    plot_bgcolor='#e0f7fa',  # Bright blue background for the plot area
+    paper_bgcolor='#e0f7fa',  # Bright blue background for the entire figure
+    title_font={'color': '#00008b'} # Dark blue color for the title
+  )
 
 # Display the Plotly chart
 st.plotly_chart(fig1, use_container_width=True)
