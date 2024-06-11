@@ -99,8 +99,29 @@ with col2:
 bitcoin_prices_df=bitcoin_prices_df[(bitcoin_prices_df["date"]>=date1) & (bitcoin_prices_df["date"]<=date2)].copy()
 
 
+
+
+#create a monthly filter
+st.sidebar.header("Choose your filter: ")
+month=st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["year_month"].unique())
+if not month:
+     df2= bitcoin_prices_df.copy()
+else:
+     df2=bitcoin_prices_df[bitcoin_prices_df["year_month"].isin(month)]
+
+
+
+# Filer the data based on the month
+
+if not month:
+   filtered_df= bitcoin_prices_df
+else:
+   filtered_df=bitcoin_prices_df[bitcoin_prices_df["year_month"].isin(month)]
+
+
+
 # Create a line chart with Plotly Expres daily
-fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close','open'], labels={
+fig1 = px.line(filtered_df, x='year_month', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
        'date': 'Date'
       }, title='DailyPrices for Bitcoin')
@@ -118,26 +139,11 @@ fig1.update_layout(
 st.plotly_chart(fig1, use_container_width=True)
 
 
-#create a monthly filter
-st.sidebar.header("Choose your filter: ")
-month=st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["year_month"].unique())
-if not month:
-     df2= bitcoin_prices_df.copy()
-else:
-     df2=bitcoin_prices_df[bitcoin_prices_df["year_month"].isin(month)]
 
-
-
-# Filer the data based on the month
-
-if not month:
-    filtered_df= bitcoin_prices_df
-else:
- filtered_df=bitcoin_prices_df[bitcoin_prices_df["year_month"].isin(month)]
 
 
 # Create a line chart with Plotly Express
-fig = px.line(filtered_df, x='year_month', y=['low', 'high', 'close','open'], labels={
+fig = px.line(monthly_data, x='year_month', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
        'year_month': 'Date'
       }, title='Monthly Low, High, and Close Prices for Bitcoin')
