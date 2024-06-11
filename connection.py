@@ -121,14 +121,14 @@ else:
 #### Pie Chart
 with col1:
     st.subheader('Volume wise Bitcoin')
-    fig3=px.pie(bitcoin_prices_df, values="Volume", names="month", hole=0.5)
+    fig3=px.pie(bitcoin_prices_df, values="volume", names="month", hole=0.5)
     fig3.update_traces(text=filtered_df["month"], textposition="outside")
     st.palotly_chart(fig3, use_container_width=True)
     
     
 
 # Create a line chart with Plotly Expres daily
-fig1 = px.line(filtered_df, x='date', y=['low', 'high', 'close','open'], labels={
+fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close','open'], labels={
        'value': 'Price',
        'date': 'Date'
       }, title='DailyPrices for Bitcoin')
