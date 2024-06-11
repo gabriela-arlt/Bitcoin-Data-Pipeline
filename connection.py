@@ -83,7 +83,7 @@ with st.expander("Data Preview"):
 
 
 #created start and end date options
-col1, col2 = st.column((2))
+col1, col2 = st.columns((2))
 bitcoin_prices_df["date"]=pd.to_datetime(bitcoin_prices_df["date"])
 
 #getting the min and max date
@@ -96,7 +96,7 @@ with col1:
 with col2:
     date2=pd.to_datetime(st.date_input("End Date", endDate))
 
-bitcoin_prices_df=bitcoin_prices_df[(bitcoin_prices_df["date"]>=date1)& (bitcoin_prices_df["date"]<=date2)].copy()
+bitcoin_prices_df=bitcoin_prices_df[(bitcoin_prices_df["date"]>=date1) & (bitcoin_prices_df["date"]<=date2)].copy()
 
 
 
