@@ -116,7 +116,7 @@ filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month
 row1, row2 = st.columns((2))
 
 # Daily Prices Line Chart
-with row1:
+with col1:
     st.subheader('Daily Bitcoin Prices')
     fig1 = px.line(filtered_df, x='date', y=['low', 'high', 'close', 'open'], labels={
         'value': 'Price',
