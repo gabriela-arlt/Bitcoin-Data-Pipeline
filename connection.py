@@ -156,7 +156,7 @@ with col2:
         yaxis_title='Average Price',
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
-        title_font=dict(color='#00008b')
+        title_font=dict(color='#00008b', size=22)
     )
     st.plotly_chart(fig2, use_container_width=True)
 
