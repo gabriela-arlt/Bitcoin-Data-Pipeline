@@ -122,13 +122,22 @@ with row1:
         'value': 'Price',
         'date': 'Date'
     }, title='Daily Prices')
+    fig1.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)'
+    )
     st.plotly_chart(fig1, use_container_width=True)
 
 # Monthly Prices Bar Chart
 with row2:
     st.subheader('Monthly Average Prices')
     fig2 = px.bar(monthly_data, x='month', y=['low', 'high', 'close', 'open'], barmode='group')
-    fig2.update_layout(xaxis_title='Month', yaxis_title='Average Price')
+    fig2.update_layout(
+        xaxis_title='Month',
+        yaxis_title='Average Price',
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)'
+    )
     st.plotly_chart(fig2, use_container_width=True)
 
 # Generate a discrete color sequence by sampling the 'Sunset' color scale
@@ -139,4 +148,9 @@ with col2:
     st.subheader('Volume wise Bitcoin')
     fig3 = px.pie(filtered_df, values="volume", names="month", hole=0.5, color_discrete_sequence=sunset_colors)
     fig3.update_traces(text=filtered_df["month"], textposition="outside")  # Update text after creating fig3
+    fig3.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)'
+    )
+    st.pl
     st.plotly_chart(fig3, use_container_width=True)
