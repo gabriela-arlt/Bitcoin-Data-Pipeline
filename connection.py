@@ -41,6 +41,8 @@ def fetch_bitcoin_news(engine):
 # Get the database connection
 conn = get_connection()
 
+import streamlit as st
+
 # Custom CSS to change background color to very light blue and font color to dark blue
 st.markdown(
     """
@@ -48,12 +50,17 @@ st.markdown(
     .main {
         background-color: #e0f7fa;
     }
+    .centered-title {
+        text-align: center;
+        color: #00008b;
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-st.markdown("<h1 style='color: #00008b;'>Gabi's Bitcoin Dashboard</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='centered-title'>Gabi's Bitcoin Dashboard</h1>", unsafe_allow_html=True)
+
 
 
 
