@@ -112,8 +112,6 @@ month = st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].uni
 
 filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month else bitcoin_prices_df.copy()
 
-# Create a row to display all plots together
-row1, row2 = st.columns((2))
 
 # Daily Prices Line Chart
 with col1:
@@ -128,18 +126,6 @@ with col1:
     )
     st.plotly_chart(fig1, use_container_width=True)
 
-# Monthly Prices Bar Chart
-with row2:
-    st.subheader('Monthly Average Prices')
-    fig2 = px.bar(monthly_data, x='month', y=['low', 'high', 'close', 'open'], barmode='group')
-    fig2.update_layout(
-        xaxis_title='Month',
-        yaxis_title='Average Price',
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)'
-    )
-    st.plotly_chart(fig2, use_container_width=True)
-
 # Generate a discrete color sequence by sampling the 'Sunset' color scale
 sunset_colors = sample_colorscale(px.colors.sequential.Sunset, [i/11 for i in range(12)])
 
@@ -153,3 +139,17 @@ with col2:
     )
     fig3.update_traces(text=filtered_df["month"], textposition="outside")  # Update text after creating fig3
     st.plotly_chart(fig3, use_container_width=True)
+
+# Monthly Prices Bar Chart
+with col2:
+    st.subheader('Monthly Average Prices')
+    fig2 = px.bar(monthly_data, x='month', y=['low', 'high', 'close', 'open'], barmode='group')
+    fig2.update_layout(
+        xaxis_title='Month',
+        yaxis_title='Average Price',
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)'
+    )
+    st.plotly_chart(fig2, use_container_width=True)
+
+
