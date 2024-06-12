@@ -54,6 +54,12 @@ st.markdown(
     .centered-title {
         text-align: center;
         color: #00008b;
+        }
+    h1 {
+        color: orange;
+    }
+    h2 {
+        color: #00008b;
     }
     </style>
     """,
