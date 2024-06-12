@@ -41,6 +41,8 @@ def fetch_bitcoin_news(engine):
 
 # Get the database connection
 conn = get_connection()
+# Set Streamlit layout to wide
+st.set_page_config(layout="wide")
 
 # Custom CSS to change background color to very light blue and font color to dark blue
 st.markdown(
