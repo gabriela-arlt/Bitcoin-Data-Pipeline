@@ -71,6 +71,18 @@ bitcoin_prices_df['date'] = pd.to_datetime(bitcoin_prices_df['date'])
 bitcoin_prices_df['month'] = bitcoin_prices_df['date'].dt.month
 bitcoin_prices_df['year'] = bitcoin_prices_df['date'].dt.year
 
+# Create a mapping from month numbers to month names
+month_map = {
+    1: 'January', 2: 'February', 3: 'March', 4: 'April',
+    5: 'May', 6: 'June', 7: 'July', 8: 'August',
+    9: 'September', 10: 'October', 11: 'November', 12: 'December'
+}
+
+# Apply the mapping to the 'month' column in monthly_data
+bitcoin_prices_df['month'] = bitcoin_prices_df['month'].map(month_map)
+
+
+
 # Group by month and calculate mean of low, high, close, and open
 monthly_data = bitcoin_prices_df.groupby('month').agg({'low': 'mean', 'high': 'mean', 'close': 'mean', 'open':'mean'}).reset_index()
 
