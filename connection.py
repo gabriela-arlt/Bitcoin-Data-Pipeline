@@ -119,6 +119,7 @@ st.sidebar.header("Choose your filter: ")
 month = st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].unique())
 
 filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month else bitcoin_prices_df.copy()
+filtered_monthly_data = monthly_data[monthly_data["month"].isin(month_map[m] for m in month)] if month else monthly_data.copy()
 
 
 # Daily Prices Line Chart
@@ -150,7 +151,7 @@ with col2:
 
 # Monthly Prices Bar Chart
 with col2:
-    fig2 = px.bar(monthly_data, x='month', y=['low', 'high', 'close', 'open'], barmode='group', title='Monthly Average Prices')
+    fig2 = px.bar(filtered_monthly_data, x='month', y=['low', 'high', 'close', 'open'], barmode='group', title='Monthly Average Prices')
     fig2.update_layout(
         xaxis_title='Month',
         yaxis_title='Average Price',
