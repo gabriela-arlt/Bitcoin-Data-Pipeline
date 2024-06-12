@@ -129,7 +129,7 @@ filtered_df['month'] = filtered_df['month'].map(month_map)
 # Daily Prices Line Chart
 with col1:
     
-    fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close', 'open'], labels={
+    fig1 = px.line(filtered_df, x='date', y=['low', 'high', 'close', 'open'], labels={
         'value': 'Price',
         'date': 'Date'
     }, title='Daily Bitcoin Prices')
