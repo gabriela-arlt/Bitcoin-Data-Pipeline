@@ -106,7 +106,7 @@ row1, row2 = st.columns((2))
 # Daily Prices Line Chart
 with row1:
     st.subheader('Daily Bitcoin Prices')
-    fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close', 'open'], labels={
+    fig1 = px.line(filtered_df, x='date', y=['low', 'high', 'close', 'open'], labels={
         'value': 'Price',
         'date': 'Date'
     }, title='Daily Prices')
