@@ -127,8 +127,9 @@ bitcoin_prices_df = bitcoin_prices_df[(bitcoin_prices_df["date"] >= date1) & (bi
 st.sidebar.header("Choose your filter: ")
 month = st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].map(month_map).unique())  # Apply mapping for month names
 
-filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month else bitcoin_prices_df.copy()
-filtered_monthly_data = monthly_data[monthly_data["month"].isin([month_map[m] for m in month])] if month else monthly_data.copy()
+# Ensure filtered data uses the same format for months as the filter
+filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].map(month_map).isin(month)] if month else bitcoin_prices_df.copy()
+filtered_monthly_data = monthly_data[monthly_data["month"].isin(month)] if month else monthly_data.copy()
 
 # Apply the mapping to the 'month' column in filtered_df for pie chart
 filtered_df['month'] = filtered_df['month'].map(month_map)
