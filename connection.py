@@ -62,6 +62,16 @@ st.markdown(
     h2 {
         color: darkblue;
     }
+    /* Custom CSS for sidebar filter */
+    .sidebar .sidebar-content h1, .sidebar .sidebar-content h2, .sidebar .sidebar-content h3 {
+        color: orange !important; /* Change color of sidebar header */
+    }
+    .sidebar .stMultiSelect label {
+        color: darkblue !important; /* Change color of the items in the multiselect */
+    }
+    .sidebar .stMultiSelect div[data-baseweb="select"] {
+        color: darkblue !important; /* Change color of the selected items in the multiselect */
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -93,7 +103,6 @@ month_map = {
 # Apply the mapping to the 'month' column in monthly_data
 monthly_data['month'] = monthly_data['month'].map(month_map)
 
-
 # Dropdown for the dataframe
 with st.expander("Data Preview"):
     st.dataframe(bitcoin_prices_df)
@@ -116,20 +125,17 @@ bitcoin_prices_df = bitcoin_prices_df[(bitcoin_prices_df["date"] >= date1) & (bi
 
 # Create a monthly filter
 st.sidebar.header("Choose your filter: ")
-month = st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].map(month_map).unique())
+month = st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].map(month_map).unique())  # Apply mapping for month names
 
 filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month else bitcoin_prices_df.copy()
-filtered_monthly_data = monthly_data[monthly_data["month"].isin(month_map[m] for m in month)] if month else monthly_data.copy()
+filtered_monthly_data = monthly_data[monthly_data["month"].isin([month_map[m] for m in month])] if month else monthly_data.copy()
 
 # Apply the mapping to the 'month' column in filtered_df for pie chart
 filtered_df['month'] = filtered_df['month'].map(month_map)
 
-
-
 # Daily Prices Line Chart
 with col1:
-    
-    fig1 = px.line(filtered_df, x='date', y=['low', 'high', 'close', 'open'], labels={
+    fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close', 'open'], labels={
         'value': 'Price',
         'date': 'Date'
     }, title='Daily Bitcoin Prices')
@@ -139,8 +145,6 @@ with col1:
         title_font=dict(color='orange', size=24)
     )
     st.plotly_chart(fig1, use_container_width=True)
-
-
 
 # Generate a discrete color sequence by sampling the 'Sunset' color scale
 sunset_colors = sample_colorscale(px.colors.sequential.Sunset, [i/11 for i in range(12)])
@@ -156,11 +160,8 @@ with col2:
     fig3.update_traces(text=filtered_df["month"], textposition="outside")  # Update text after creating fig3
     st.plotly_chart(fig3, use_container_width=True)
 
-
-
 # Monthly Prices Bar Chart
 with col2:
-   
     fig2 = px.bar(filtered_monthly_data, x='month', y=['low', 'high', 'close', 'open'], barmode='group', title='Monthly Average Prices')
     fig2.update_layout(
         xaxis_title='Month',
@@ -170,4 +171,3 @@ with col2:
         title_font=dict(color='orange', size=24)
     )
     st.plotly_chart(fig2, use_container_width=True)
-
