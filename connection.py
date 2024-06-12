@@ -5,6 +5,7 @@ import plotly.express as px
 import os
 from dotenv import load_dotenv
 import plotly.graph_objects as go
+from plotly.colors import sample_colorscale
 
 load_dotenv()
 
@@ -41,8 +42,6 @@ def fetch_bitcoin_news(engine):
 # Get the database connection
 conn = get_connection()
 
-import streamlit as st
-
 # Custom CSS to change background color to very light blue and font color to dark blue
 st.markdown(
     """
@@ -61,13 +60,9 @@ st.markdown(
 
 st.markdown("<h1 class='centered-title'>Gabi's Bitcoin Dashboard</h1>", unsafe_allow_html=True)
 
-
-
-
 # Fetch the bitcoin data and news
 bitcoin_prices_df = fetch_bitcoin_data(conn)
 bitcoin_news_df = fetch_bitcoin_news(conn)
-
 
 # Convert date column to datetime format
 bitcoin_prices_df['date'] = pd.to_datetime(bitcoin_prices_df['date'])
@@ -76,46 +71,34 @@ bitcoin_prices_df['date'] = pd.to_datetime(bitcoin_prices_df['date'])
 bitcoin_prices_df['month'] = bitcoin_prices_df['date'].dt.month
 bitcoin_prices_df['year'] = bitcoin_prices_df['date'].dt.year
 
-
-# Group by year_month and calculate mean of low, high, and close
+# Group by month and calculate mean of low, high, close, and open
 monthly_data = bitcoin_prices_df.groupby('month').agg({'low': 'mean', 'high': 'mean', 'close': 'mean', 'open':'mean'}).reset_index()
 
-
-
-#Dropdown for the dataframe
+# Dropdown for the dataframe
 with st.expander("Data Preview"):
     st.dataframe(bitcoin_prices_df)
 
-
-
-#created start and end date options
+# Create start and end date options
 col1, col2 = st.columns((2))
-bitcoin_prices_df["date"]=pd.to_datetime(bitcoin_prices_df["date"])
+bitcoin_prices_df["date"] = pd.to_datetime(bitcoin_prices_df["date"])
 
-#getting the min and max date
-startDate=pd.to_datetime(bitcoin_prices_df["date"]).min()
-endDate=pd.to_datetime(bitcoin_prices_df["date"]).max()
+# Getting the min and max date
+startDate = pd.to_datetime(bitcoin_prices_df["date"]).min()
+endDate = pd.to_datetime(bitcoin_prices_df["date"]).max()
 
 with col1:
-    date1=pd.to_datetime(st.date_input("Start Date", startDate))
+    date1 = pd.to_datetime(st.date_input("Start Date", startDate))
 
 with col2:
-    date2=pd.to_datetime(st.date_input("End Date", endDate))
+    date2 = pd.to_datetime(st.date_input("End Date", endDate))
 
-bitcoin_prices_df=bitcoin_prices_df[(bitcoin_prices_df["date"]>=date1) & (bitcoin_prices_df["date"]<=date2)].copy()
+bitcoin_prices_df = bitcoin_prices_df[(bitcoin_prices_df["date"] >= date1) & (bitcoin_prices_df["date"] <= date2)].copy()
 
-
-
-
-#create a monthly filter
+# Create a monthly filter
 st.sidebar.header("Choose your filter: ")
 month = st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].unique())
 
 filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month else bitcoin_prices_df.copy()
-
-
-# Filer the data based on the month
-
 
 # Create a row to display all plots together
 row1, row2 = st.columns((2))
@@ -123,24 +106,25 @@ row1, row2 = st.columns((2))
 # Daily Prices Line Chart
 with row1:
     st.subheader('Daily Bitcoin Prices')
-    fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close','open'], labels={
+    fig1 = px.line(bitcoin_prices_df, x='date', y=['low', 'high', 'close', 'open'], labels={
         'value': 'Price',
         'date': 'Date'
-    }, title='Daily')
-    # Monthly Prices Bar Chart
+    }, title='Daily Prices')
+    st.plotly_chart(fig1, use_container_width=True)
+
+# Monthly Prices Bar Chart
 with row2:
     st.subheader('Monthly Average Prices')
     fig2 = px.bar(monthly_data, x='month', y=['low', 'high', 'close', 'open'], barmode='group')
     fig2.update_layout(xaxis_title='Month', yaxis_title='Average Price')
     st.plotly_chart(fig2, use_container_width=True)
-# Filter data based on selected month(s)
-filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month else bitcoin_prices_df.copy()
 
-#color_discrete_sequence=px.colors.qualitative.Plasma
+# Generate a discrete color sequence by sampling the 'Sunset' color scale
+sunset_colors = sample_colorscale(px.colors.sequential.Sunset, [i/11 for i in range(12)])
+
 # Pie Chart
 with col2:
     st.subheader('Volume wise Bitcoin')
-    fig3 = px.pie(filtered_df, values="volume", names="month", hole=0.5, color_discrete_sequence=px.colors.qualitative.Plasma)
+    fig3 = px.pie(filtered_df, values="volume", names="month", hole=0.5, color_discrete_sequence=sunset_colors)
     fig3.update_traces(text=filtered_df["month"], textposition="outside")  # Update text after creating fig3
     st.plotly_chart(fig3, use_container_width=True)
-
