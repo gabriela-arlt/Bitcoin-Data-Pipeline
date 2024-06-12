@@ -93,6 +93,7 @@ month_map = {
 # Apply the mapping to the 'month' column in monthly_data
 monthly_data['month'] = monthly_data['month'].map(month_map)
 
+
 # Dropdown for the dataframe
 with st.expander("Data Preview"):
     st.dataframe(bitcoin_prices_df)
@@ -119,6 +120,10 @@ month = st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].uni
 
 filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month else bitcoin_prices_df.copy()
 filtered_monthly_data = monthly_data[monthly_data["month"].isin(month_map[m] for m in month)] if month else monthly_data.copy()
+
+# Apply the mapping to the 'month' column in filtered_df for pie chart
+filtered_df['month'] = filtered_df['month'].map(month_map)
+
 
 
 # Daily Prices Line Chart
