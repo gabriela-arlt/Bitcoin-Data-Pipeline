@@ -62,16 +62,6 @@ st.markdown(
     h2 {
         color: darkblue;
     }
-    /* Custom CSS for sidebar filter */
-    .sidebar .sidebar-content h1, .sidebar .sidebar-content h2, .sidebar .sidebar-content h3 {
-        color: orange !important; /* Change color of sidebar header */
-    }
-    .sidebar .stMultiSelect label {
-        color: darkblue !important; /* Change color of the items in the multiselect */
-    }
-    .sidebar .stMultiSelect div[data-baseweb="select"] {
-        color: darkblue !important; /* Change color of the selected items in the multiselect */
-    }
     </style>
     """,
     unsafe_allow_html=True
