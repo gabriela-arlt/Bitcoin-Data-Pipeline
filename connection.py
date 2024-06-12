@@ -140,7 +140,7 @@ filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month
 # Pie Chart
 with col2:
     st.subheader('Volume wise Bitcoin')
-    fig3 = px.pie(filtered_df, values="volume", names="month", hole=0.5,  color_continuous_scale=px.colors.sequential.swatches_continuous("Sunset"))
+    fig3 = px.pie(filtered_df, values="volume", names="month", hole=0.5, color_discrete_sequence=px.colors.qualitative.Plasma)
     fig3.update_traces(text=filtered_df["month"], textposition="outside")  # Update text after creating fig3
     st.plotly_chart(fig3, use_container_width=True)
 
