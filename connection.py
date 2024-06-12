@@ -141,7 +141,7 @@ filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month
 # Pie Chart
 
 # Generate a discrete color sequence by sampling the 'mygbm' color scale
-mygbm_colors = sample_colorscale(px.colors.sequential.Mygbm, [i/11 for i in range(12)])
+mygbm_colors = sample_colorscale(px.colors.sequential.mygbm, [i/11 for i in range(12)])
 
 # Pie Chart
 with st.columns(2)[1]:  # Correcting to st.columns for the current Streamlit version
