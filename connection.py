@@ -147,10 +147,9 @@ sunset_colors = sample_colorscale(px.colors.sequential.Sunset, [i/11 for i in ra
 with col2:
     st.subheader('Volume wise Bitcoin')
     fig3 = px.pie(filtered_df, values="volume", names="month", hole=0.5, color_discrete_sequence=sunset_colors)
-    fig3.update_traces(text=filtered_df["month"], textposition="outside")  # Update text after creating fig3
     fig3.update_layout(
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)'
     )
-    st.pl
+    fig3.update_traces(text=filtered_df["month"], textposition="outside")  # Update text after creating fig3
     st.plotly_chart(fig3, use_container_width=True)
