@@ -130,7 +130,7 @@ with col1:
     fig1.update_layout(
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
-        title_font=dict(color='#00008b')
+        title_font=dict(color='#00008b', size=24)
     )
     st.plotly_chart(fig1, use_container_width=True)
 
@@ -143,7 +143,7 @@ with col2:
     fig3.update_layout(
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
-        title_font=dict(color='#00008b')
+        title_font=dict(color='#00008b', size=24)
     )
     fig3.update_traces(text=filtered_df["month"], textposition="outside")  # Update text after creating fig3
     st.plotly_chart(fig3, use_container_width=True)
@@ -156,7 +156,7 @@ with col2:
         yaxis_title='Average Price',
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
-        title_font=dict(color='#00008b', size=22)
+        title_font=dict(color='#00008b', size=24)
     )
     st.plotly_chart(fig2, use_container_width=True)
 
