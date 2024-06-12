@@ -116,7 +116,7 @@ bitcoin_prices_df = bitcoin_prices_df[(bitcoin_prices_df["date"] >= date1) & (bi
 
 # Create a monthly filter
 st.sidebar.header("Choose your filter: ")
-month = st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].unique())
+month = st.sidebar.multiselect("Pick your Month", bitcoin_prices_df["month"].map(month_map).unique())
 
 filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month else bitcoin_prices_df.copy()
 filtered_monthly_data = monthly_data[monthly_data["month"].isin(month_map[m] for m in month)] if month else monthly_data.copy()
