@@ -5,6 +5,7 @@ import plotly.express as px
 import os
 from dotenv import load_dotenv
 import plotly.graph_objects as go
+from plotly.colors import sample_colorscale
 
 load_dotenv()
 
@@ -138,9 +139,14 @@ filtered_df = bitcoin_prices_df[bitcoin_prices_df["month"].isin(month)] if month
 
 #color_discrete_sequence=px.colors.qualitative.Plasma
 # Pie Chart
-with col2:
+
+# Generate a discrete color sequence by sampling the 'mygbm' color scale
+mygbm_colors = sample_colorscale(px.colors.sequential.Mygbm, [i/11 for i in range(12)])
+
+# Pie Chart
+with st.columns(2)[1]:  # Correcting to st.columns for the current Streamlit version
     st.subheader('Volume wise Bitcoin')
-    fig3 = px.pie(filtered_df, values="volume", names="month", hole=0.5,  color_discrete_sequence=px.colors.sequential.mygbm)
+    fig3 = px.pie(filtered_df, values="volume", names="month", hole=0.5,
+                  color_discrete_sequence=mygbm_colors)
     fig3.update_traces(text=filtered_df["month"], textposition="outside")  # Update text after creating fig3
     st.plotly_chart(fig3, use_container_width=True)
-
