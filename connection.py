@@ -77,7 +77,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown("<h1 class='centered-title'>Gabi's Bitcoin Dashboard</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='centered-title'>Bitcoin Dashboard</h1>", unsafe_allow_html=True)
 
 # Fetch the bitcoin data and news
 bitcoin_prices_df = fetch_bitcoin_data(conn)
